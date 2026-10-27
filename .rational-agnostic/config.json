@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "locale": "es",
+  "canonical": "en",
+  "embeddings": {
+    "provider": "local",
+    "model": "Xenova/all-MiniLM-L6-v2",
+    "dimensions": 384
+  },
+  "rules": {
+    "requireWhyTag": true,
+    "requireTaskStatus": true,
+    "failOnOrphans": true
+  }
+}

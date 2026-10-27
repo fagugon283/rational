@@ -1,0 +1,76 @@
+{
+  "name": "rational-agnostic",
+  "version": "0.1.0",
+  "description": "Vendor-agnostic, file-based governance & traceability layer for AI coding agents: decisions, shared memory, task state, learnings and token-aware context retrieval. Everything is persisted in English.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Paco Aguilera <paco_aguilera@yahoo.es>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fagugon283/rational-agnostic.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fagugon283/rational-agnostic/issues"
+  },
+  "homepage": "https://github.com/fagugon283/rational-agnostic#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "ai",
+    "agents",
+    "agents.md",
+    "mcp",
+    "model-context-protocol",
+    "adr",
+    "decision-records",
+    "traceability",
+    "shared-memory",
+    "multi-agent",
+    "context-engineering"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "rational-agnostic": "dist/cli/index.js",
+    "ragn": "dist/cli/index.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/cli/index.ts",
+    "mcp": "tsx src/mcp/server.ts",
+    "test": "node --test",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "commander": "^12.1.0",
+    "gray-matter": "^4.0.3",
+    "proper-lockfile": "^4.1.2",
+    "zod": "^3.23.8"
+  },
+  "optionalDependencies": {
+    "@huggingface/transformers": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.0",
+    "@types/proper-lockfile": "^4.1.4",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

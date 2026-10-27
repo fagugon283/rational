@@ -1,0 +1,3 @@
+# Paths whose @why: tags are examples or test fixtures, not real anchors.
+# gitignore-style globs, matched against repo-relative paths.
+test/**

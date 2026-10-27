@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "tasks": {
+    "T-0001": {
+      "status": "done",
+      "title": "Build core, MCP server and CLI",
+      "assignee": "agent:anthropic:claude-code",
+      "updated": "2026-10-27T18:33:58.846Z"
+    },
+    "T-0002": {
+      "status": "done",
+      "title": "Add automated test suite",
+      "updated": "2026-10-27T18:36:36.120Z"
+    },
+    "T-0003": {
+      "status": "backlog",
+      "title": "Publish 0.1.0 to npm",
+      "updated": "2026-10-27T18:33:59.250Z"
+    }
+  }
+}

@@ -118,6 +118,13 @@ rational-agnostic reindex
 import { init, decisions, getContext, verify } from "rational-agnostic";
 ```
 
+## Documentation
+
+A detailed, self-contained explainer (what was built, why, and how it works) is
+in [`docs/how-it-works.html`](docs/how-it-works.html) — open it in a browser.
+Available in English (primary), Spanish, Chinese and Japanese via the in-page
+language switcher.
+
 ## License
 
 MIT © Paco Aguilera

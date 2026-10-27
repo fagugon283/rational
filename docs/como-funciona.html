@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cómo funciona · rational-agnostic</title>
+<meta name="description" content="Qué es rational-agnostic, por qué se diseñó así y cómo funciona por dentro: decisiones, trazabilidad por hash, memoria compartida, contexto con presupuesto de tokens y adopción brownfield.">
+<style>
+  :root {
+    --bg: #fbfaf8;
+    --surface: #ffffff;
+    --surface-2: #f3f1ec;
+    --text: #1c1b19;
+    --muted: #6b665d;
+    --border: #e3dfd6;
+    --accent: #a8541b;
+    --accent-soft: #fbeee3;
+    --code-bg: #2b2a28;
+    --code-text: #f4f1ea;
+    --ok: #2e7d32;
+    --warn: #b5651d;
+    --radius: 12px;
+    --maxw: 900px;
+    color-scheme: light dark;
+  }
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --bg: #181715;
+      --surface: #201f1c;
+      --surface-2: #26241f;
+      --text: #ece8e0;
+      --muted: #a39d92;
+      --border: #332f29;
+      --accent: #e8904f;
+      --accent-soft: #2c2016;
+      --code-bg: #0f0e0d;
+      --code-text: #ece8e0;
+      --ok: #7fc784;
+      --warn: #e0a567;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #181715;
+    --surface: #201f1c;
+    --surface-2: #26241f;
+    --text: #ece8e0;
+    --muted: #a39d92;
+    --border: #332f29;
+    --accent: #e8904f;
+    --accent-soft: #2c2016;
+    --code-bg: #0f0e0d;
+    --code-text: #ece8e0;
+    --ok: #7fc784;
+    --warn: #e0a567;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 16px; }
+  header.hero {
+    background: linear-gradient(180deg, var(--accent-soft), transparent);
+    border-bottom: 1px solid var(--border);
+    padding: 56px 0 36px;
+  }
+  .eyebrow { color: var(--accent); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-size: 12px; margin: 0 0 10px; }
+  h1 { font-size: clamp(28px, 5vw, 42px); line-height: 1.1; margin: 0 0 12px; letter-spacing: -0.02em; }
+  .lead { font-size: 18px; color: var(--muted); max-width: 60ch; margin: 0; }
+  .meta { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill { background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; font-size: 13px; color: var(--muted); }
+  .pill b { color: var(--text); }
+
+  main { padding: 8px 0 80px; }
+  .layout { display: block; }
+  @media (min-width: 1040px) {
+    .layout { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: start; }
+    nav.toc { position: sticky; top: 24px; }
+  }
+  nav.toc { padding: 24px 0; font-size: 14px; }
+  nav.toc a { display: block; color: var(--muted); text-decoration: none; padding: 5px 0; border-left: 2px solid transparent; padding-left: 12px; }
+  nav.toc a:hover { color: var(--accent); }
+
+  section { padding: 28px 0; border-top: 1px solid var(--border); }
+  section:first-child { border-top: 0; }
+  h2 { font-size: 24px; margin: 0 0 6px; letter-spacing: -0.01em; scroll-margin-top: 20px; }
+  h3 { font-size: 17px; margin: 24px 0 6px; }
+  p { margin: 10px 0; }
+  .muted { color: var(--muted); }
+  a { color: var(--accent); }
+
+  pre {
+    background: var(--code-bg); color: var(--code-text);
+    padding: 16px; border-radius: var(--radius); overflow-x: auto;
+    font-size: 13.5px; line-height: 1.55; margin: 14px 0;
+  }
+  pre .c { color: #9aa0a6; }
+  pre .k { color: #e8904f; }
+  pre .s { color: #93c572; }
+  :not(pre) > code {
+    background: var(--surface-2); border: 1px solid var(--border);
+    padding: 1px 6px; border-radius: 6px; font-size: 0.9em;
+  }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin: 14px 0; }
+  .grid2 { display: grid; gap: 14px; }
+  @media (min-width: 640px) { .grid2 { grid-template-columns: 1fr 1fr; } }
+
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 14.5px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 13px; }
+  td code { white-space: nowrap; }
+
+  .note { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 12px 16px; border-radius: 0 var(--radius) var(--radius) 0; margin: 16px 0; }
+  .ok { color: var(--ok); font-weight: 600; }
+
+  figure { margin: 18px 0; }
+  figure svg { width: 100%; height: auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+  figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; text-align: center; }
+
+  .theme-toggle { position: fixed; top: 14px; right: 14px; background: var(--surface); border: 1px solid var(--border); color: var(--muted); border-radius: 999px; padding: 6px 12px; font-size: 13px; cursor: pointer; z-index: 10; }
+  footer { border-top: 1px solid var(--border); padding: 28px 0; color: var(--muted); font-size: 14px; }
+  .kicker { color: var(--accent); font-weight: 600; font-size: 13px; }
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="themeBtn" aria-label="Cambiar tema">◐ tema</button>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Documentación del proyecto</p>
+    <h1>rational-agnostic: qué se hizo, por qué y cómo funciona</h1>
+    <p class="lead">Una capa de gobernanza y trazabilidad basada en ficheros, agnóstica de editor, lenguaje y fabricante, que se sitúa <em>por encima</em> de cualquier agente de IA. Todo lo que se persiste se escribe en inglés.</p>
+    <div class="meta">
+      <span class="pill"><b>v0.1.0</b> · MIT</span>
+      <span class="pill">TypeScript · Node ≥18 · ESM</span>
+      <span class="pill"><b>30</b> decisiones · <b>88</b> funciones ancladas</span>
+      <span class="pill">MCP + CLI + librería</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+<div class="layout">
+  <nav class="toc" aria-label="Índice">
+    <a href="#problema">1 · El problema</a>
+    <a href="#que">2 · Qué se construyó</a>
+    <a href="#estructura">3 · Estructura de ficheros</a>
+    <a href="#decisiones">4 · Decisiones</a>
+    <a href="#hash">5 · Trazabilidad por hash</a>
+    <a href="#contexto">6 · Contexto y tokens</a>
+    <a href="#memoria">7 · Memoria y tareas</a>
+    <a href="#conocimiento">8 · Aprendizaje</a>
+    <a href="#adopcion">9 · Adopción brownfield</a>
+    <a href="#verify">10 · verify (los dientes)</a>
+    <a href="#porque">11 · Por qué así</a>
+    <a href="#uso">12 · Cómo usarlo</a>
+    <a href="#estado">13 · Estado</a>
+  </nav>
+
+  <div>
+  <section id="problema">
+    <h2>1 · El problema y el hueco en el mercado</h2>
+    <p>Cuando varios agentes de IA —de distintas compañías— trabajan sobre un mismo código, se pierde el <em>porqué</em>: por qué existe una función, qué se decidió y qué se descartó, qué aprendió el equipo. El contexto se evapora entre sesiones y entre agentes, y se malgastan tokens recargando historia.</p>
+    <p>La competencia cubre piezas sueltas, pero ninguna resuelve el conjunto de forma neutral:</p>
+    <table>
+      <tr><th>Herramienta</th><th>Qué aporta</th><th>Limitación</th></tr>
+      <tr><td><b>AGENTS.md</b></td><td>Estándar abierto (Agentic AI Foundation) leído por 20–25 herramientas</td><td>Markdown libre sin esquema; describe build/convenciones, no gobernanza</td></tr>
+      <tr><td><b>Letta / Mem0</b></td><td>Memoria compartida entre agentes</td><td>Atadas a su propio framework; no agnósticas de editor</td></tr>
+      <tr><td><b>ADR</b></td><td>Registros de decisión referenciados por ID en el código</td><td>Nadie hace bien la búsqueda por hash de función → decisión</td></tr>
+      <tr><td><b>LangGraph / CrewAI / Mastra</b></td><td>Orquestación y estado</td><td>Ligadas a su runtime</td></tr>
+    </table>
+    <p class="note"><b>El hueco:</b> un registro <b>neutral, portable y en ficheros</b> —decisiones, trazabilidad, memoria, tareas y aprendizaje— que cualquier agente de cualquier fabricante alimenta y consulta, por encima de todos los frameworks.</p>
+  </section>
+
+  <section id="que">
+    <h2>2 · Qué se construyó</h2>
+    <p>Un paquete npm con tres interfaces sobre un <b>único núcleo</b>:</p>
+    <ul>
+      <li><b>Servidor MCP</b> (22 herramientas) — lo que hablan los agentes modernos.</li>
+      <li><b>CLI</b> (<code>rational-agnostic</code> / <code>ragn</code>) — para humanos, hooks de git y CI.</li>
+      <li><b>Librería</b> TypeScript — para integraciones a medida.</li>
+    </ul>
+    <figure>
+      <svg viewBox="0 0 760 300" role="img" aria-label="Diagrama de arquitectura">
+        <style>
+          .box{fill:var(--surface);stroke:var(--border);stroke-width:1.5;rx:10}
+          .lbl{fill:var(--text);font:600 14px sans-serif}
+          .sub{fill:var(--muted);font:12px sans-serif}
+          .acc{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5}
+          .arr{stroke:var(--muted);stroke-width:1.6;fill:none;marker-end:url(#a)}
+          .atxt{fill:var(--muted);font:11px ui-monospace,monospace}
+          .core{fill:var(--accent);font:700 14px sans-serif}
+        </style>
+        <defs><marker id="a" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="var(--muted)"/></marker></defs>
+        <rect class="box" x="20" y="30" width="200" height="70" rx="10"/>
+        <text class="lbl" x="36" y="58">Agente IA (cualquier vendor)</text>
+        <text class="sub" x="36" y="78">Claude Code · Cursor · Codex…</text>
+        <rect class="box" x="20" y="200" width="200" height="70" rx="10"/>
+        <text class="lbl" x="36" y="228">Humano · git hook · CI</text>
+        <text class="sub" x="36" y="248">pre-commit · pipeline</text>
+
+        <rect class="acc" x="300" y="30" width="150" height="70" rx="10"/>
+        <text class="lbl" x="318" y="58">Servidor MCP</text>
+        <text class="sub" x="318" y="78">22 herramientas</text>
+        <rect class="acc" x="300" y="200" width="150" height="70" rx="10"/>
+        <text class="lbl" x="330" y="228">CLI</text>
+        <text class="sub" x="318" y="248">+ librería</text>
+
+        <rect class="box" x="520" y="110" width="210" height="90" rx="10" style="fill:var(--accent-soft);stroke:var(--accent)"/>
+        <text class="core" x="545" y="140">Núcleo compartido</text>
+        <text class="sub" x="545" y="162">stores · hash · lock</text>
+        <text class="sub" x="545" y="182">retrieval · verify</text>
+
+        <path class="arr" d="M220,65 L300,65"/>
+        <text class="atxt" x="232" y="56">record_decision…</text>
+        <path class="arr" d="M220,235 L300,235"/>
+        <text class="atxt" x="238" y="226">verify · adopt</text>
+        <path class="arr" d="M450,65 L560,120"/>
+        <path class="arr" d="M450,235 L560,190"/>
+        <path class="arr" d="M625,200 L625,250" />
+        <rect class="box" x="520" y="250" width="210" height="34" rx="8"/>
+        <text class="sub" x="545" y="272">.rational-agnostic/ (ficheros)</text>
+      </svg>
+      <figcaption>Agentes y humanos entran por MCP o CLI; ambos operan sobre el mismo núcleo, que lee y escribe ficheros versionables.</figcaption>
+    </figure>
+  </section>
+
+  <section id="estructura">
+    <h2>3 · Estructura de ficheros</h2>
+    <p>Todo vive en ficheros dentro del repo (diffables en git). <code>AGENTS.md</code> es un manifiesto genérico: explica <em>cómo</em> se usa el sistema, nunca de qué va tu proyecto.</p>
+<pre><span class="c"># manifiesto genérico: cómo usar + dónde está todo (sin el dominio del proyecto)</span>
+AGENTS.md
+.rational-agnostic/
+  config.json          <span class="c"># locale, canonical:"en", embeddings, reglas</span>
+  decisions/  D-*.md    <span class="c"># 1 decisión = 1 fichero (Context/Decision/Why/Consequences)</span>
+  tasks/      T-*.md     <span class="c"># 1 tarea = 1 fichero</span>
+              board.json <span class="c"># índice de estados</span>
+  memory/     shared.md  <span class="c"># memoria compartida entre agentes</span>
+              agents/*.md
+  knowledge/  learnings.md  conventions.md
+  index/      registry.json <span class="c"># función (file+symbol) → decisión + SHA-256</span>
+              embeddings/   <span class="c"># índice semántico (caché, gitignored)</span>
+              locks/</pre>
+    <p class="note"><b>Canónico en inglés:</b> tu <code>locale</code> puede ser <code>es</code>, pero decisiones, memoria, tareas y learnings se escriben siempre en inglés, para que sean portables y buscables por cualquier agente.</p>
+  </section>
+
+  <section id="decisiones">
+    <h2>4 · Decisiones: el porqué, por escrito</h2>
+    <p>Cada elección no trivial se registra como un fichero estilo <b>ADR</b> con secciones fijas. El sistema devuelve un ID (p.ej. <code>D-7f3a2c</code>) que se incrusta en el código.</p>
+<pre><span class="c">// @why: D-7f3a2c</span>
+<span class="k">export function</span> issueToken(user) { <span class="c">/* ... */</span> }</pre>
+    <p>El comentario es estable: sobrevive a reediciones y lo entiende cualquier agente. Los IDs de decisión son hex aleatorio de 6 (sin contador central → sin colisiones entre agentes en paralelo); tareas y learnings usan IDs secuenciales bajo bloqueo.</p>
+  </section>
+
+  <section id="hash">
+    <h2>5 · Trazabilidad por hash (coge una función, encuentra su porqué)</h2>
+    <p>Al etiquetar una función, el sistema guarda en <code>registry.json</code> un <b>SHA-256</b> del cuerpo (normalizado: insensible a reindentación, sensible a cambios reales). Eso habilita la búsqueda inversa por ubicación <em>o por hash</em>, y detección de deriva.</p>
+    <figure>
+      <svg viewBox="0 0 760 210" role="img" aria-label="Flujo de trazabilidad">
+        <style>
+          .b{fill:var(--surface);stroke:var(--border);stroke-width:1.5}
+          .t{fill:var(--text);font:600 13px sans-serif}
+          .m{fill:var(--muted);font:11px ui-monospace,monospace}
+          .ar{stroke:var(--accent);stroke-width:1.8;fill:none;marker-end:url(#b)}
+        </style>
+        <defs><marker id="b" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="var(--accent)"/></marker></defs>
+        <rect class="b" x="18" y="70" width="180" height="64" rx="10"/>
+        <text class="t" x="34" y="98">Función en el código</text>
+        <text class="m" x="34" y="118">// @why: D-7f3a2c</text>
+        <rect class="b" x="290" y="70" width="180" height="64" rx="10"/>
+        <text class="t" x="306" y="96">registry.json</text>
+        <text class="m" x="306" y="116">D-7f3a2c → {file,</text>
+        <text class="m" x="306" y="130">symbol, sha256}</text>
+        <rect class="b" x="562" y="70" width="180" height="64" rx="10"/>
+        <text class="t" x="578" y="98">Decisión</text>
+        <text class="m" x="578" y="118">Context/Why/…</text>
+        <path class="ar" d="M198,102 L290,102"/>
+        <path class="ar" d="M470,102 L562,102"/>
+        <text class="m" x="205" y="92">tag_code</text>
+        <text class="m" x="478" y="92">resuelve</text>
+        <path class="ar" d="M652,134 C652,180 360,185 108,160 L108,138"/>
+        <text class="m" x="360" y="198">why --hash &lt;sha256&gt;  ·  why &lt;file&gt; &lt;symbol&gt;</text>
+      </svg>
+      <figcaption>Ida: etiquetar ancla la función a su decisión con un hash. Vuelta: por hash o por ubicación recuperas el porqué.</figcaption>
+    </figure>
+<pre>rational-agnostic why src/core/lock.ts withLock      <span class="c"># función → porqué</span>
+rational-agnostic why --hash &lt;sha256&gt;                <span class="c"># hash → porqué</span></pre>
+  </section>
+
+  <section id="contexto">
+    <h2>6 · Contexto con presupuesto de tokens</h2>
+    <p>En vez de volcar todo el historial, <code>get_context</code> arma un <b>paquete mínimo relevante</b>: la tarea activa, las decisiones y learnings más afines (ranking semántico) y una cola de memoria compartida, recortado a un presupuesto de tokens.</p>
+<pre>rational-agnostic context --task T-0001 --budget 1500</pre>
+    <p>La búsqueda semántica usa <b>embeddings locales</b> por defecto (<code>all-MiniLM-L6-v2</code>, sin API key, offline); si la dependencia opcional no está, hay un <em>fallback léxico determinista</em> para que la búsqueda funcione siempre. El índice vectorial es una caché reconstruible (<code>reindex</code>); los ficheros markdown son la fuente de verdad.</p>
+  </section>
+
+  <section id="memoria">
+    <h2>7 · Memoria compartida y estado de tareas</h2>
+    <div class="grid2">
+      <div class="card"><span class="kicker">Memoria</span><p><code>memory/shared.md</code> es el punto de encuentro multi-vendor: un agente de OpenAI lee lo que dejó uno de Anthropic. Entradas atribuidas y con fecha vía <code>append_memory</code>.</p></div>
+      <div class="card"><span class="kicker">Tareas</span><p>Una tarea por fichero + un <code>board.json</code> que da el estado de todas de un vistazo (<code>backlog → todo → doing → review → blocked → done</code>) sin leer cada fichero.</p></div>
+    </div>
+  </section>
+
+  <section id="conocimiento">
+    <h2>8 · Aprendizaje (el sistema mejora)</h2>
+    <p>Capa de conocimiento híbrida: los agentes registran <em>learnings</em> explícitos cuando detectan algo reutilizable (<code>record_learning</code>), y un <code>distill</code> determinista mina las decisiones en busca de patrones recurrentes y reversiones. Así, antes de decidir, un agente consulta lo aprendido y no repite errores ya razonados.</p>
+  </section>
+
+  <section id="adopcion">
+    <h2>9 · Adopción en un proyecto ya hecho (brownfield)</h2>
+    <p>Punto clave: <b>la herramienta no entiende tu código por sí sola</b> —eso lo hace el LLM. El reparto:</p>
+    <ul>
+      <li><b>La herramienta (determinista):</b> <code>adopt</code> inventaría el repo (lenguajes, manifiestos, puntos de entrada, ficheros grandes, cobertura de tags) y genera un <b>plan + prompt de onboarding</b>.</li>
+      <li><b>El agente que elijas:</b> lee el inventario y <code>AGENTS.md</code>, explora y hace <code>record_decision</code> + <code>tag_code</code> de forma incremental.</li>
+    </ul>
+    <p class="note"><b>Integridad:</b> el agente tiene <b>prohibido inventar porqués</b>. Si no puede inferir algo, lo anota como pregunta en memoria compartida y te consulta. <code>init</code> es no destructivo y <code>verify</code> no falla por código legacy sin etiquetar.</p>
+<pre>rational-agnostic adopt            <span class="c"># inventario + plan (dry-run)</span>
+rational-agnostic adopt --write    <span class="c"># baseline + tarea + brief en memoria</span></pre>
+  </section>
+
+  <section id="verify">
+    <h2>10 · verify: los dientes en CI y pre-commit</h2>
+    <p>Comprobaciones deterministas cuya severidad decides en <code>config.json</code>: tags huérfanos (apuntan a una decisión inexistente), anclas a ficheros desaparecidos, tareas con estado inválido, decisiones con "Why" vacío. Sale con código ≠ 0 ante errores, así que encaja en un hook o pipeline. Un <code>.rationalignore</code> excluye fixtures y ejemplos.</p>
+<pre>rational-agnostic verify   <span class="c"># OK — 0 error(s) / exit 1 si falla</span></pre>
+  </section>
+
+  <section id="porque">
+    <h2>11 · Por qué se diseñó así</h2>
+    <table>
+      <tr><th>Decisión</th><th>Por qué</th></tr>
+      <tr><td>Capa <b>por encima</b> de los frameworks, no un framework</td><td>El hueco es un registro neutral y portable; mantenerlo determinista preserva la integridad</td></tr>
+      <tr><td>Tag <code>@why</code> estable <b>+ hash</b> en registro</td><td>El tag sobrevive a ediciones; el SHA habilita búsqueda inversa y detección de deriva</td></tr>
+      <tr><td>Ficheros + <b>locking</b> (sin servidor)</td><td>Portable en git, y agentes de distintos fabricantes colaboran sin infra</td></tr>
+      <tr><td>Embeddings <b>locales</b> por defecto</td><td>Offline, gratis y privado; fiel al nombre "agnostic"; proveedor enchufable</td></tr>
+      <tr><td>Persistencia <b>en inglés</b></td><td>Base de conocimiento buscable y portable entre agentes y en el tiempo</td></tr>
+      <tr><td><code>AGENTS.md</code> genérico</td><td>Portable y sin filtrar el dominio del proyecto; el porqué vive en las decisiones</td></tr>
+      <tr><td>Aplazar daemon central y autotraducción</td><td>Menos complejidad; el agente escribe inglés mejor que un traductor empotrado</td></tr>
+    </table>
+  </section>
+
+  <section id="uso">
+    <h2>12 · Cómo usarlo</h2>
+    <h3>Instalar y arrancar</h3>
+<pre>npm install -g rational-agnostic        <span class="c"># o: npx rational-agnostic &lt;cmd&gt;</span>
+cd tu-proyecto
+rational-agnostic init                   <span class="c"># crea AGENTS.md + .rational-agnostic/</span>
+rational-agnostic adopt                  <span class="c"># si ya tiene código: inventario + plan</span></pre>
+    <h3>Conectar un agente por MCP</h3>
+<pre>{
+  <span class="s">"mcpServers"</span>: {
+    <span class="s">"rational-agnostic"</span>: { <span class="s">"command"</span>: <span class="s">"npx"</span>, <span class="s">"args"</span>: [<span class="s">"rational-agnostic"</span>, <span class="s">"mcp"</span>] }
+  }
+}</pre>
+    <h3>El protocolo del agente</h3>
+    <ol>
+      <li><code>get_context</code> primero (ahorra tokens).</li>
+      <li>Ten una tarea; mantén su estado con <code>set_task_status</code>.</li>
+      <li>Antes de codear: <code>record_decision</code> → te da un <code>D-xxxx</code>.</li>
+      <li>Etiqueta el código con <code>// @why: D-xxxx</code> y <code>tag_code</code>.</li>
+      <li>Comparte con <code>append_memory</code>; destila con <code>record_learning</code>.</li>
+      <li><code>verify</code> debe pasar.</li>
+    </ol>
+  </section>
+
+  <section id="estado">
+    <h2>13 · Estado actual</h2>
+    <p>El propio repositorio <b>se autogobierna</b> con su herramienta (dogfooding):</p>
+    <ul>
+      <li><span class="ok">✔</span> <b>30 decisiones</b> registradas (26 de implementación + 4 de esta sesión de diseño).</li>
+      <li><span class="ok">✔</span> <b>88 funciones/clases</b> de <code>src/</code> ancladas por SHA-256.</li>
+      <li><span class="ok">✔</span> <b>6/6 tests</b> (<code>node:test</code>) · <code>verify</code> en verde · build limpio.</li>
+      <li><span class="ok">✔</span> Paquete empaquetado (~53 kB) y usable localmente.</li>
+      <li>⛔ Publicación en npm <em>pendiente</em> (requiere crear cuenta en npmjs.com).</li>
+    </ul>
+    <p class="muted">Nombre confirmado libre en npm. Al publicar: <code>npm login</code> → <code>npm publish</code> (acceso público ya configurado).</p>
+  </section>
+  </div>
+</div>
+</main>
+
+<footer class="wrap">
+  <p>rational-agnostic · MIT · generado como documentación del proyecto. Los contenidos persistidos del sistema están en inglés; este explicador está en español a petición.</p>
+</footer>
+
+<script>
+  // Per-viewer theme toggle only (cosmetic); wrapped so it never throws.
+  (function () {
+    var btn = document.getElementById("themeBtn");
+    var root = document.documentElement;
+    try {
+      var saved = localStorage.getItem("ra-theme");
+      if (saved) root.setAttribute("data-theme", saved);
+    } catch (e) {}
+    btn.addEventListener("click", function () {
+      var cur = root.getAttribute("data-theme");
+      var next = cur === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("ra-theme", next); } catch (e) {}
+    });
+  })();
+</script>
+</body>
+</html>

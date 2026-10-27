@@ -13,9 +13,9 @@
       "updated": "2026-10-27T18:36:36.120Z"
     },
     "T-0003": {
-      "status": "backlog",
+      "status": "blocked",
       "title": "Publish 0.1.0 to npm",
-      "updated": "2026-10-27T18:33:59.250Z"
+      "updated": "2026-10-27T18:53:44.592Z"
     }
   }
 }

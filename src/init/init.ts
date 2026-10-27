@@ -62,10 +62,22 @@ export function init(root: string, opts: InitOptions = {}): InitResult {
     created.push("config.json");
   }
 
+  // Data stores accumulate irreplaceable multi-agent history: seed them only
+  // when missing, and never let --force overwrite them. Only AGENTS.md (a pure
+  // template) honors --force. @why: D-2551ad
+  const seedIfMissing = (file: string, content: string, label: string) => {
+    if (existsSync(file)) {
+      skipped.push(label);
+      return;
+    }
+    writeFileAtomic(file, content);
+    created.push(label);
+  };
+
   writeOnce(join(root, "AGENTS.md"), AGENTS_MD, "AGENTS.md");
-  writeOnce(paths.memoryShared, SHARED_MEMORY_MD, "memory/shared.md");
-  writeOnce(paths.learnings, LEARNINGS_MD, "knowledge/learnings.md");
-  writeOnce(paths.conventions, CONVENTIONS_MD, "knowledge/conventions.md");
+  seedIfMissing(paths.memoryShared, SHARED_MEMORY_MD, "memory/shared.md");
+  seedIfMissing(paths.learnings, LEARNINGS_MD, "knowledge/learnings.md");
+  seedIfMissing(paths.conventions, CONVENTIONS_MD, "knowledge/conventions.md");
 
   if (!existsSync(paths.board)) {
     writeJson(paths.board, { version: 1, tasks: {} });

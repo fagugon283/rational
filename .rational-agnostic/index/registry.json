@@ -1,0 +1,670 @@
+{
+  "version": 1,
+  "anchors": {
+    "D-0026": [
+      {
+        "file": "src/adopt/adopt.ts",
+        "symbol": "walk",
+        "sha256": "3f4e5145830afa4c28f5aa006b1eb1645ea99e7640ec333aef651e90c1d4aefc",
+        "taggedAt": "2026-10-27T18:55:29.298Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/adopt/adopt.ts",
+        "symbol": "analyze",
+        "sha256": "bb05c1bca5a4d459aa5a4f9421e72b2e57c1d6b4aa67ca779e4a523e8d23822b",
+        "taggedAt": "2026-10-27T18:55:29.311Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/adopt/adopt.ts",
+        "symbol": "adopt",
+        "sha256": "f1f2c1637445648f5b8627391c2f872e3a78ac70470155d8306bd73a6eabe070",
+        "taggedAt": "2026-10-27T18:55:29.318Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0023": [
+      {
+        "file": "src/cli/index.ts",
+        "symbol": "program",
+        "sha256": "66c698b1c3b8f63218cbfddbd9a3c02bf920562a1783df82e4cd081fe58392e4",
+        "taggedAt": "2026-10-27T18:55:29.325Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/cli/index.ts",
+        "symbol": "out",
+        "sha256": "d71457cf2b4c54144d7ebdd72b313600c3e9040e6b874bc9c0ba67401538be48",
+        "taggedAt": "2026-10-27T18:55:29.332Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/cli/index.ts",
+        "symbol": "csv",
+        "sha256": "e72484e05d9edc7cdaaf81818c2431d866bce5ea6f41c43269e7832bfd63eca5",
+        "taggedAt": "2026-10-27T18:55:29.338Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/cli/index.ts",
+        "symbol": "dec",
+        "sha256": "272dd58a0f79c05686bc2d123c52bab55d69234dc8c690364b6c9bbb327fe42b",
+        "taggedAt": "2026-10-27T18:55:29.344Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/cli/index.ts",
+        "symbol": "task",
+        "sha256": "bed0cd4d885e2efc88b5c39efe901a17ed5b11b89d3981c49f4212397a930a17",
+        "taggedAt": "2026-10-27T18:55:29.351Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/cli/index.ts",
+        "symbol": "mem",
+        "sha256": "8b9f8bc36c00d2d7a3236b1c3009f363ca2d4bf9e53e2a36897299eadf7a6a52",
+        "taggedAt": "2026-10-27T18:55:29.358Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/cli/index.ts",
+        "symbol": "learn",
+        "sha256": "adf9bc39c60c58fe10027f9a6caf64b5731ffbcf8fd98575497036376632bb2d",
+        "taggedAt": "2026-10-27T18:55:29.364Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/cli/index.ts",
+        "symbol": "printReport",
+        "sha256": "460c28761388242b0a7e7017c6cf062c991cd1de65e179d3f618a004eb48bca8",
+        "taggedAt": "2026-10-27T18:55:29.370Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/cli/index.ts",
+        "symbol": "fail",
+        "sha256": "531ab9e25c93b77b9d7e98e593603f84b905adb07008eeafe66bb146c790677f",
+        "taggedAt": "2026-10-27T18:55:29.376Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0007": [
+      {
+        "file": "src/core/config.ts",
+        "symbol": "defaultConfig",
+        "sha256": "761d4cf43d6c6eb109f6826491ea1b7e498657f65d67d381edf28af7393d1efa",
+        "taggedAt": "2026-10-27T18:55:29.382Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/core/config.ts",
+        "symbol": "loadConfig",
+        "sha256": "af8e4c9cf233507359fe9e43d682088ee1489d21c5df8a5fba441f6c307c8381",
+        "taggedAt": "2026-10-27T18:55:29.388Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/core/config.ts",
+        "symbol": "saveConfig",
+        "sha256": "02cab11addfc1a77cb02a663efd16fc7b347a5d936de2c268d8f3e7f1245f8e2",
+        "taggedAt": "2026-10-27T18:55:29.393Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0006": [
+      {
+        "file": "src/core/frontmatter.ts",
+        "symbol": "parse",
+        "sha256": "c2b36a74247740ab94ca798f830513ca293d8532fccb75c1564b13c4cb4205d5",
+        "taggedAt": "2026-10-27T18:55:29.400Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/core/frontmatter.ts",
+        "symbol": "stringify",
+        "sha256": "3a0a17b2102ad636d2b7c550232d9dc6d1b384af50f7932c9d948e92ebbafc38",
+        "taggedAt": "2026-10-27T18:55:29.406Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0003": [
+      {
+        "file": "src/core/fsutil.ts",
+        "symbol": "ensureDir",
+        "sha256": "33254b01f14a37f39d95b78743867c1b197b4f3056e32744c031d12f4053f8a0",
+        "taggedAt": "2026-10-27T18:55:29.411Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/core/fsutil.ts",
+        "symbol": "readText",
+        "sha256": "9e766a4322f27aebff9e1bd84df1dbc17bdcac1d9b5d3a6164a1a5df4ca3390c",
+        "taggedAt": "2026-10-27T18:55:29.417Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/core/fsutil.ts",
+        "symbol": "writeFileAtomic",
+        "sha256": "a6895fa544fbba4cae4bac3ad8e02db1a8a0e1917edca34512c3c61326856604",
+        "taggedAt": "2026-10-27T18:55:29.422Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/core/fsutil.ts",
+        "symbol": "readJson",
+        "sha256": "1028b3c868cd99cc3b81f44081975042779681bc17a0a7b99f3fad6e4ce620ad",
+        "taggedAt": "2026-10-27T18:55:29.427Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/core/fsutil.ts",
+        "symbol": "writeJson",
+        "sha256": "9ea3f8e9d0871303ad88ef6453cdaa9d30b4bb66ade4c446dcc7e2870705e77a",
+        "taggedAt": "2026-10-27T18:55:29.432Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0004": [
+      {
+        "file": "src/core/hash.ts",
+        "symbol": "sha256",
+        "sha256": "72ab0eb7c6813dbfe8283d86fd6f2ca27138fda8812296c53388804e03b22502",
+        "taggedAt": "2026-10-27T18:55:29.437Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/core/hash.ts",
+        "symbol": "normalizeForHash",
+        "sha256": "efff861477a61d09c03e7b0556629eb0d1d6fd23c6e219e3e202002b406c22a8",
+        "taggedAt": "2026-10-27T18:55:29.443Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/core/hash.ts",
+        "symbol": "hashBody",
+        "sha256": "14f225523a4bb44cb253b3972befbafde6cd414034a2a1cd120b6fea2e6d66f8",
+        "taggedAt": "2026-10-27T18:55:29.447Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0005": [
+      {
+        "file": "src/core/ids.ts",
+        "symbol": "newDecisionId",
+        "sha256": "b2fd0fc15f275a1514e439ebd553a860810b7ff8e03e18b48bba838f40d1cc6d",
+        "taggedAt": "2026-10-27T18:55:29.453Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/core/ids.ts",
+        "symbol": "nextSeqId",
+        "sha256": "16355c9f58933a007de511fb0e98e19199b402b0ff0fa2e129386c25d6007915",
+        "taggedAt": "2026-10-27T18:55:29.458Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0008": [
+      {
+        "file": "src/core/lock.ts",
+        "symbol": "sentinel",
+        "sha256": "f6d7d4d954ae92b172a74d3253b7afde73ceddf8529bcffae55ceddc4bdd8777",
+        "taggedAt": "2026-10-27T18:55:29.463Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/core/lock.ts",
+        "symbol": "withLock",
+        "sha256": "fe757a80b640ab402cb3ff824f4dc3ab9619b281b719970b972be07edc1f2faa",
+        "taggedAt": "2026-10-27T18:55:29.468Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0002": [
+      {
+        "file": "src/core/paths.ts",
+        "symbol": "pathsFor",
+        "sha256": "1f452d954b9bb4413b0af7a086e477eca7959a52a011f907b90293aa2382b33c",
+        "taggedAt": "2026-10-27T18:55:29.474Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/core/paths.ts",
+        "symbol": "findRoot",
+        "sha256": "a522d9f25340802c9523aa2d15ff3a82d6533000ce5742c96b59f77f1042e5d8",
+        "taggedAt": "2026-10-27T18:55:29.479Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/core/paths.ts",
+        "symbol": "requirePaths",
+        "sha256": "d4f3d2560efe6398bc0ab539e83783b30ead3e88f7cfb2b3d68cf5564eb1703b",
+        "taggedAt": "2026-10-27T18:55:29.484Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0009": [
+      {
+        "file": "src/core/registry.ts",
+        "symbol": "empty",
+        "sha256": "a4ddd9f5cabff693ccfbbf81d38e92bc54367777c58d835cc3554714ee0ee992",
+        "taggedAt": "2026-10-27T18:55:29.490Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/core/registry.ts",
+        "symbol": "loadRegistry",
+        "sha256": "8cd4da2f52fda92e3b1c1cad6c29f30f6b62837686f55dc832a205ac209ebffd",
+        "taggedAt": "2026-10-27T18:55:29.494Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/core/registry.ts",
+        "symbol": "addAnchor",
+        "sha256": "898e471a7aa1ed5beb76d5172f74c2e25f3647e95caf52078744522541eae814",
+        "taggedAt": "2026-10-27T18:55:29.499Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/core/registry.ts",
+        "symbol": "findByAnchor",
+        "sha256": "3bc4fe8373b2c1c0dbaa7142cae05d65446b6b1af681bc31bb4aed973d8ee2e8",
+        "taggedAt": "2026-10-27T18:55:29.504Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0025": [
+      {
+        "file": "src/core/scan.ts",
+        "symbol": "loadIgnore",
+        "sha256": "2ca28f940c0af20c20ed85fe940b058404405646abee8ff86bfcad8481c2db3c",
+        "taggedAt": "2026-10-27T18:55:29.512Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/core/scan.ts",
+        "symbol": "globToRegExp",
+        "sha256": "927d98fde875875c3680a77c066f0fbeba41f5a32ae7133a8704f64ded92972b",
+        "taggedAt": "2026-10-27T18:55:29.519Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/core/scan.ts",
+        "symbol": "guessSymbol",
+        "sha256": "fda3c2ca96f6e7f2e3289dc34d67dcfdd22b0e14b537b89785cfc4fb4ef3bb3d",
+        "taggedAt": "2026-10-27T18:55:29.525Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/core/scan.ts",
+        "symbol": "walk",
+        "sha256": "2609e45e2c69c2c3876dfd002e707e94cd711e477bcd4201a3c83cf7207e0c78",
+        "taggedAt": "2026-10-27T18:55:29.531Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0017": [
+      {
+        "file": "src/core/scan.ts",
+        "symbol": "scanTags",
+        "sha256": "4ed73acc70d23e66be6e1222f31eae0cecc721681d99fe0accdd760f460141f9",
+        "taggedAt": "2026-10-27T18:55:29.537Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0018": [
+      {
+        "file": "src/core/verify.ts",
+        "symbol": "verify",
+        "sha256": "2164bebea7bdd1b51226544dfcec631d4f48a0dd4804af98cc95c5f5ab5b8cad",
+        "taggedAt": "2026-10-27T18:55:29.544Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0021": [
+      {
+        "file": "src/init/init.ts",
+        "symbol": "init",
+        "sha256": "0ae41c103890cf97ac52a88ad79f8805aa4b51e154459dbec4326f7c35a483b2",
+        "taggedAt": "2026-10-27T18:55:29.550Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/init/init.ts",
+        "symbol": "ensureGitignore",
+        "sha256": "e7a4ba05e57c4b822c0967b61e06eee68be27421f4ee3cc8b7a7c0cc1b93d1ea",
+        "taggedAt": "2026-10-27T18:52:58.524Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0024": [
+      {
+        "file": "src/mcp/server.ts",
+        "symbol": "json",
+        "sha256": "f58b7704d1bb36488f906d0ff8adcb1c394d231627af207382a9c156be0cdb6a",
+        "taggedAt": "2026-10-27T18:55:29.561Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/mcp/server.ts",
+        "symbol": "cfg",
+        "sha256": "15585e10a9a5fd47c50ec5a33cc0eef8fe6ec6b93a475fc011171eb08242fc7e",
+        "taggedAt": "2026-10-27T18:55:29.566Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/mcp/server.ts",
+        "symbol": "buildServer",
+        "sha256": "4ad98aab5287400714b1a9764a306c7496a4170f38b6e829bb50bab4f1f51ad1",
+        "taggedAt": "2026-10-27T18:55:29.571Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/mcp/server.ts",
+        "symbol": "main",
+        "sha256": "9e3dd026282e4a16093a4f9dac507c2c0ebfeee029acb11a421ea8d01ae859a8",
+        "taggedAt": "2026-10-27T18:55:29.576Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0016": [
+      {
+        "file": "src/retrieval/context.ts",
+        "symbol": "estimateTokens",
+        "sha256": "9ef020c513f113a2e58c20c07389723b6f24def246340c5f03cf7fbeab43c10f",
+        "taggedAt": "2026-10-27T18:55:29.582Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/retrieval/context.ts",
+        "symbol": "getContext",
+        "sha256": "90bb27d9e280671e242ef43a6e3176833c028bf2d412e7003fd9c7b106bf28f5",
+        "taggedAt": "2026-10-27T18:55:29.587Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0014": [
+      {
+        "file": "src/retrieval/embeddings.ts",
+        "symbol": "LexicalEmbedder",
+        "sha256": "c4b9a6c752b1ffaabec219388005c1f07ee27a0e8cf2be0d2aed91d98d90d082",
+        "taggedAt": "2026-10-27T18:55:29.593Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/retrieval/embeddings.ts",
+        "symbol": "LocalModelEmbedder",
+        "sha256": "d60aa93ee598a49c3db1c129146e1112ff47f0d46759d39f2f507c9de45490d4",
+        "taggedAt": "2026-10-27T18:55:29.598Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/retrieval/embeddings.ts",
+        "symbol": "getEmbedder",
+        "sha256": "235b384ba4b4c7d921abd4eaf4961f36718f528f716491478205e544e7540beb",
+        "taggedAt": "2026-10-27T18:55:29.602Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0015": [
+      {
+        "file": "src/retrieval/index.ts",
+        "symbol": "storeFile",
+        "sha256": "bfac4aa6ad6f88fdfc24286a3b35d7d60bf80d573953d4fde63b5c7cf0cb0bdd",
+        "taggedAt": "2026-10-27T18:55:29.608Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/retrieval/index.ts",
+        "symbol": "gather",
+        "sha256": "47778ee4fd0085c7e05faab3312d7ecc8704dd0ec3b9b1cc25730668d218ebdd",
+        "taggedAt": "2026-10-27T18:55:29.613Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/retrieval/index.ts",
+        "symbol": "cosine",
+        "sha256": "600cd470442e6554d2dd9238d4019d57d77a1cb283cec327e4183a915b1e1e56",
+        "taggedAt": "2026-10-27T18:55:29.618Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/retrieval/index.ts",
+        "symbol": "rebuild",
+        "sha256": "5ce3890e8d9a8b215c8b3b485cf293c3199b21e3deb58a48e713c81861326b6f",
+        "taggedAt": "2026-10-27T18:55:29.696Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/retrieval/index.ts",
+        "symbol": "load",
+        "sha256": "491e04c45bb157edf423279a278c20a3dd0ad9e614d5fff431b0a23a5a8558e3",
+        "taggedAt": "2026-10-27T18:55:29.702Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/retrieval/index.ts",
+        "symbol": "search",
+        "sha256": "a245e4f74ecf837d7672a6047f526ad69fb148b1a5ad9c864f3b0ba120f502eb",
+        "taggedAt": "2026-10-27T18:55:29.709Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0010": [
+      {
+        "file": "src/stores/decisions.ts",
+        "symbol": "file",
+        "sha256": "767adaa9fc5fef05bf2bfe2909e61eedfc378a9b4f4543c11dd28bee0aa3f711",
+        "taggedAt": "2026-10-27T18:55:29.717Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/decisions.ts",
+        "symbol": "listIds",
+        "sha256": "b0a9dc905befb81b898e225188a4140e0c6fde556a094529c136d13466f13a94",
+        "taggedAt": "2026-10-27T18:55:29.723Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/decisions.ts",
+        "symbol": "get",
+        "sha256": "be175744c1217725e2ecfa6d419baec0838cfcd3c00b029b7b41f3d7fc708bf5",
+        "taggedAt": "2026-10-27T18:55:29.732Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/decisions.ts",
+        "symbol": "all",
+        "sha256": "630082584d6314f9e40fdf33f1584c6ccde75b2590128bc1c072719efac43825",
+        "taggedAt": "2026-10-27T18:55:29.737Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/decisions.ts",
+        "symbol": "create",
+        "sha256": "25df0c2b8149d046780dc4c4d7d3aa204be0c2907fc771a9a608970f5d949839",
+        "taggedAt": "2026-10-27T18:55:29.742Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/decisions.ts",
+        "symbol": "persist",
+        "sha256": "4efa26452084ea7fe8772801d160ff46af57e7e8afaa3baa22a221b3017e0794",
+        "taggedAt": "2026-10-27T18:55:29.748Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0013": [
+      {
+        "file": "src/stores/knowledge.ts",
+        "symbol": "list",
+        "sha256": "97b96faa489dd7b14893216ddedf2e157ca1651be3b0a6f7edc4245e3e2d32c6",
+        "taggedAt": "2026-10-27T18:55:29.754Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/knowledge.ts",
+        "symbol": "record",
+        "sha256": "c5f33da0eef70558bd66b1e982b86f1ee909d6376e311fd469d6f64db0a7f14c",
+        "taggedAt": "2026-10-27T18:55:29.760Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/knowledge.ts",
+        "symbol": "append",
+        "sha256": "5269923fb8220e4d1fd29d96b909903982925ee48306d6517150712dfaca0deb",
+        "taggedAt": "2026-10-27T18:55:29.766Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/knowledge.ts",
+        "symbol": "distill",
+        "sha256": "28619daf45396510ff7ae4b3960bd4990d0b280c34ff4c036a10121d936867de",
+        "taggedAt": "2026-10-27T18:55:29.771Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0012": [
+      {
+        "file": "src/stores/memory.ts",
+        "symbol": "fileFor",
+        "sha256": "5608746c805a4ff2c8710015e92eaee79908b5d7e482cdaa2ea53e8c2bcbc2e1",
+        "taggedAt": "2026-10-27T18:55:29.776Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/memory.ts",
+        "symbol": "read",
+        "sha256": "f3583c1820f98c74c03a876f8452cc84b31ce0e5c00c1c6e74ce04c5427c472f",
+        "taggedAt": "2026-10-27T18:55:29.781Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/memory.ts",
+        "symbol": "write",
+        "sha256": "2c65a0322443f5a5a7b702fb423e1c680b58babb9226b7c4e11de3dbb8dad9f1",
+        "taggedAt": "2026-10-27T18:55:29.786Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/memory.ts",
+        "symbol": "append",
+        "sha256": "6ca029cd313eb3c583eb046ef5fa7f5219a96b0a8c607630dbc96dcd02ea291a",
+        "taggedAt": "2026-10-27T18:55:29.791Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0011": [
+      {
+        "file": "src/stores/tasks.ts",
+        "symbol": "isStatus",
+        "sha256": "7477b829c67c7d4db3cbfeae8f7402f5f5f7a1994180eb4730900f1af8edee86",
+        "taggedAt": "2026-10-27T18:55:29.797Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/tasks.ts",
+        "symbol": "file",
+        "sha256": "8f005ff6f23614d62172fb4c2cc1bcbe6c5cfdec6bc28c5965f2fd679e0103fa",
+        "taggedAt": "2026-10-27T18:55:29.802Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/tasks.ts",
+        "symbol": "listIds",
+        "sha256": "e925e09af510a5b3500d6b6f71f5784c1aac5f56863c8afaf08de3580a5c9e01",
+        "taggedAt": "2026-10-27T18:55:29.807Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/tasks.ts",
+        "symbol": "get",
+        "sha256": "faf9b516cb57702d5d9cf4cf0dafb00b9aab6dafaff4321a55a863e5e797f35f",
+        "taggedAt": "2026-10-27T18:55:29.812Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/tasks.ts",
+        "symbol": "all",
+        "sha256": "99c700b45f69f4537f7962dda32835adad3fd058baad7406b462b02c99784de4",
+        "taggedAt": "2026-10-27T18:55:29.817Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/tasks.ts",
+        "symbol": "loadBoard",
+        "sha256": "d1c9ab0f3f4375c2bcfa7a5e50969b9ec79cf4cddc8b29ed09ae1b640cf921ac",
+        "taggedAt": "2026-10-27T18:55:29.822Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/tasks.ts",
+        "symbol": "syncBoard",
+        "sha256": "c973aa5287c709527bbd011c659505a5c528ae94365bf3f48b6729858773d680",
+        "taggedAt": "2026-10-27T18:55:29.827Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/tasks.ts",
+        "symbol": "persist",
+        "sha256": "5a22b8e794d1337943d1bbb48846fbf1f162b8bc4a6e0cd290b60db5050d2d28",
+        "taggedAt": "2026-10-27T18:55:29.831Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/tasks.ts",
+        "symbol": "create",
+        "sha256": "5bdd61c16af7e446dac2fb77f428390551756729b3db79a7d5eb1f5cc16f2f8b",
+        "taggedAt": "2026-10-27T18:55:29.836Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/tasks.ts",
+        "symbol": "setStatus",
+        "sha256": "bae8aceef16fbe7a403ec44c16a23b7b2f576079bcc4fb186b9dc09d720e61d5",
+        "taggedAt": "2026-10-27T18:55:29.842Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-0019": [
+      {
+        "file": "src/stores/traceability.ts",
+        "symbol": "tagCode",
+        "sha256": "748b437229e884b76dbc79bb6339f48113eb6f01f150be907963e69b997a56b2",
+        "taggedAt": "2026-10-27T18:55:29.847Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/traceability.ts",
+        "symbol": "whyFor",
+        "sha256": "8b66a75a6cd119010900ca6d33b40161793a905a874f7e85f904d4d6ead7a0be",
+        "taggedAt": "2026-10-27T18:55:29.852Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/traceability.ts",
+        "symbol": "whyForHash",
+        "sha256": "a71355f9832be6dec679851162d731fa2c6a5bf19d0b183c06d2664e7cc83f56",
+        "taggedAt": "2026-10-27T18:55:29.857Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      },
+      {
+        "file": "src/stores/traceability.ts",
+        "symbol": "hashOf",
+        "sha256": "09893681b96e465cbd108e922fdfc97739c5f19f996023b43be811cb7faf25ef",
+        "taggedAt": "2026-10-27T18:55:29.862Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ],
+    "D-2551ad": [
+      {
+        "file": "src/init/init.ts",
+        "symbol": "ensureGitignore",
+        "sha256": "e7a4ba05e57c4b822c0967b61e06eee68be27421f4ee3cc8b7a7c0cc1b93d1ea",
+        "taggedAt": "2026-10-27T18:55:29.555Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
+    ]
+  },
+  "updatedAt": "2026-10-27T18:55:29.864Z"
+}

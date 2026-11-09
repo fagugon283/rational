@@ -1,6 +1,6 @@
 {
   "name": "rational-agnostic",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Vendor-agnostic, file-based governance & traceability layer for AI coding agents: decisions, shared memory, task state, learnings and token-aware context retrieval. Everything is persisted in English.",
   "type": "module",
   "license": "MIT",

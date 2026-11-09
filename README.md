@@ -149,7 +149,7 @@ import { init, decisions, getContext, verify } from "rational-agnostic";
 ## Documentation
 
 A detailed, self-contained explainer (what was built, why, and how it works) is
-in [`docs/how-it-works.html`](https://github.com/fagugon283/rational-agnostic/blob/main/docs/how-it-works.html)
+in [`docs/how-it-works.html`](https://github.com/fagugon283/rational/blob/main/docs/how-it-works.html)
 — clone the repo and open it in a browser. Available in English (primary),
 Spanish, Chinese and Japanese via the in-page language switcher.
 

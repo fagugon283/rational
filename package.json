@@ -7,12 +7,12 @@
   "author": "Paco Aguilera <paco_aguilera@yahoo.es>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fagugon283/rational-agnostic.git"
+    "url": "git+https://github.com/fagugon283/rational.git"
   },
   "bugs": {
-    "url": "https://github.com/fagugon283/rational-agnostic/issues"
+    "url": "https://github.com/fagugon283/rational/issues"
   },
-  "homepage": "https://github.com/fagugon283/rational-agnostic#readme",
+  "homepage": "https://github.com/fagugon283/rational#readme",
   "publishConfig": {
     "access": "public"
   },

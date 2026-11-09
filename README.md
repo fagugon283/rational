@@ -1,7 +1,7 @@
 # rational-agnostic
 
 [![npm version](https://img.shields.io/npm/v/rational-agnostic.svg)](https://www.npmjs.com/package/rational-agnostic)
-[![npm downloads](https://img.shields.io/npm/dm/rational-agnostic.svg)](https://www.npmjs.com/package/rational-agnostic)
+[![install size](https://packagephobia.com/badge?p=rational-agnostic)](https://packagephobia.com/result?p=rational-agnostic)
 [![license](https://img.shields.io/npm/l/rational-agnostic.svg)](./LICENSE)
 [![node](https://img.shields.io/node/v/rational-agnostic.svg)](https://nodejs.org)
 

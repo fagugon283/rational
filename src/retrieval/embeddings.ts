@@ -82,7 +82,10 @@ class LocalModelEmbedder implements Embedder {
 
 /**
  * Build an embedder from config, falling back to the lexical embedder if the
- * local model's optional dependency cannot be loaded.
+ * local model's optional dependency cannot be loaded. @huggingface/transformers
+ * is an optional peer (not installed by default) so the default footprint stays
+ * tiny and free of the sharp/libvips CVEs; this probe enables it when present.
+ * @why: D-1ac7d8
  */
 export async function getEmbedder(config: EmbeddingsConfig): Promise<Embedder> {
   const dims = config.dimensions ?? 384;

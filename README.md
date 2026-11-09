@@ -32,10 +32,42 @@ npm install -g rational-agnostic   # or: npx rational-agnostic <command>
 
 ## Quickstart
 
+Every project starts with `init`, which scaffolds `AGENTS.md`, the
+`.rational-agnostic/` store, and wires every major AI agent (see
+[Zero-config agent wiring](#zero-config-agent-wiring)):
+
 ```bash
 cd your-repo
 rational-agnostic init            # creates AGENTS.md + .rational-agnostic/
 ```
+
+### Already have a codebase? Run `adopt` (brownfield)
+
+If the repo already had code **before** rational-agnostic, don't start from a
+blank slate — have it inventory what exists and lay out an onboarding plan. This
+is the recommended path for any non-empty project:
+
+```bash
+rational-agnostic init            # 1. scaffold (adopt needs this first)
+rational-agnostic adopt           # 2. read-only inventory + plan:
+                                  #    languages, manifests, entry points,
+                                  #    largest/most-central files, tag coverage
+rational-agnostic adopt --write   # 3. persist an "as-built" baseline decision,
+                                  #    open an adoption task, post a brief to
+                                  #    shared memory — then point your agent here
+```
+
+Nothing breaks on day one: existing untagged code is allowed (`verify` only
+flags `@why` tags that point to a *missing* decision, never legacy code). From
+there you work the plan **incrementally** — largest/most central modules first —
+recording a decision and tagging the code for each design choice you can infer.
+**Never invent rationale:** if you can't tell why something exists, ask (append a
+question to shared memory) instead of fabricating a decision.
+
+> MCP-capable agents have the same two steps as the `adopt_report` and
+> `start_adoption` tools.
+
+### Record a decision and tag the code
 
 Record a decision and tag the code it justifies:
 
@@ -129,10 +161,21 @@ AGENTS.md                      generic manifest: how to use the package + where 
 
 ## Semantic retrieval & tokens
 
-Search and `get_context` use embeddings. The default is a **local, offline model**
-(`Xenova/all-MiniLM-L6-v2`, no API key); if its optional dependency isn't present,
-a deterministic lexical fallback keeps search working everywhere. The vector index
-is a rebuildable cache — the markdown files are always the source of truth:
+Search and `get_context` use embeddings. Out of the box they run on a
+**deterministic lexical embedder** with **zero extra dependencies** — nothing to
+download, no network, no native binaries. For higher-quality semantic search you
+can opt into a **local, offline transformer model** (`Xenova/all-MiniLM-L6-v2`,
+no API key) by installing the optional peer:
+
+```bash
+npm install @huggingface/transformers    # optional; enables the local model
+```
+
+It is **not installed by default** on purpose: it pulls `sharp`/`onnxruntime`
+(~135 MB and the only packages flagged by `npm audit` here). When absent, the
+lexical fallback keeps search working everywhere; when present, the code detects
+and uses it automatically. The vector index is a rebuildable cache — the markdown
+files are always the source of truth:
 
 ```bash
 rational-agnostic search "how are auth tokens issued"
@@ -152,6 +195,28 @@ A detailed, self-contained explainer (what was built, why, and how it works) is
 in [`docs/how-it-works.html`](https://github.com/fagugon283/rational/blob/main/docs/how-it-works.html)
 — clone the repo and open it in a browser. Available in English (primary),
 Spanish, Chinese and Japanese via the in-page language switcher.
+
+## Security & footprint
+
+The default install is deliberately lean — no native binaries, no install
+scripts, no network access at install time:
+
+- **Heavy ML stack is opt-in.** `@huggingface/transformers` (and its `sharp` /
+  `onnxruntime` subtree, ~135 MB) is **not** a runtime dependency; it is loaded
+  via a guarded dynamic `import` only if you install it yourself. This keeps the
+  default footprint ~24 MB and free of the `sharp`/libvips advisories.
+- **Small, trusted runtime deps.** `commander` (CLI, zero-dep), `gray-matter`
+  (YAML frontmatter), `proper-lockfile` (safe cross-process writes), `zod`
+  (schema validation) and the official `@modelcontextprotocol/sdk`.
+- **Known advisory (low impact here):** `zod < 4.6.6` carries a
+  memory-exhaustion DoS ([GHSA-mrhx-c7xc-m3w5](https://github.com/advisories/GHSA-mrhx-c7xc-m3w5))
+  on oversized constrained collections. zod validates **local** MCP tool inputs
+  from your own agent, not untrusted remote traffic, so practical exposure is
+  low. It is pinned transitively by the MCP SDK; it will move to the fixed
+  release when the SDK does. Run `npm audit` any time to check the current state.
+
+Report a vulnerability via the repo's
+[issues](https://github.com/fagugon283/rational/issues).
 
 ## License
 

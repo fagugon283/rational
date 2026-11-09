@@ -673,7 +673,16 @@
         "taggedAt": "2026-11-09T16:49:21.435Z",
         "taggedBy": "agent:anthropic:claude-code"
       }
+    ],
+    "D-1ac7d8": [
+      {
+        "file": "src/retrieval/embeddings.ts",
+        "symbol": "getEmbedder",
+        "sha256": "1309961a488cfe42631ad0d9411258a0cb7823f9715933fd9b8d27a20f2452be",
+        "taggedAt": "2026-11-09T17:08:53.239Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
     ]
   },
-  "updatedAt": "2026-11-09T16:49:21.445Z"
+  "updatedAt": "2026-11-09T17:08:53.248Z"
 }

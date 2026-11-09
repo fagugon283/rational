@@ -70,14 +70,37 @@ rational-agnostic init --hook     # installs a pre-commit `verify` gate
 rational-agnostic verify          # exit 1 on orphan tags / bad task status
 ```
 
-## Connect an AI agent (MCP)
+## Zero-config agent wiring
 
-Add the server to any MCP-capable client (Claude Code, Cursor, Codex, Copilot, …):
+`init` doesn't just scaffold the data store — it **wires every major AI agent for
+you**, so whoever runs `npx rational-agnostic init` gets a ready-to-use setup with
+no manual MCP configuration. It generates (and safely *merges* into, never
+clobbers) the file each client actually reads:
+
+| Agent | MCP config written | Instructions file |
+|---|---|---|
+| Claude Code | `.mcp.json` (auto-discovered) | `CLAUDE.md` → `AGENTS.md` |
+| Cursor | `.cursor/mcp.json` | `AGENTS.md` |
+| Codex | `.codex/config.toml` | `AGENTS.md` |
+| Gemini CLI | `.gemini/settings.json` | `GEMINI.md` → `AGENTS.md` |
+| Copilot | `.vscode/mcp.json` | `.github/copilot-instructions.md` → `AGENTS.md` |
+
+Open any of those agents in the repo and the MCP server + protocol are already in
+place (restart the client once to load MCP; approve/trust it if prompted). Opt out
+with `rational-agnostic init --no-mcp`.
+
+**The CLI needs none of this** — every operation is also a command, so any agent
+can use rational-agnostic with zero setup by running `npx rational-agnostic …`
+straight from `AGENTS.md`. MCP is just a more token-efficient interface on top.
+
+## Connect an AI agent (MCP) manually
+
+If a client wasn't auto-wired, add this stdio server to its config:
 
 ```json
 {
   "mcpServers": {
-    "rational-agnostic": { "command": "npx", "args": ["rational-agnostic", "mcp"] }
+    "rational-agnostic": { "command": "npx", "args": ["-y", "rational-agnostic", "mcp"] }
   }
 }
 ```

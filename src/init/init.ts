@@ -12,11 +12,14 @@ import {
   PRE_COMMIT_HOOK,
   SHARED_MEMORY_MD,
 } from "./templates.js";
+import { wireAgents } from "./wiring.js";
 
 export interface InitOptions {
   locale?: string;
   force?: boolean;
   withHook?: boolean;
+  /** Generate per-agent MCP configs + instruction pointers. Default true. */
+  wireMcp?: boolean;
 }
 
 export interface InitResult {
@@ -101,6 +104,15 @@ export function init(root: string, opts: InitOptions = {}): InitResult {
     } else {
       skipped.push(".git/hooks/pre-commit (no .git)");
     }
+  }
+
+  // Auto-wire every major AI agent (MCP configs + instruction pointers) unless
+  // the caller opted out. Non-destructive: never clobbers existing servers.
+  // @why: D-783fc9
+  if (opts.wireMcp !== false) {
+    const wired = wireAgents(root);
+    created.push(...wired.created);
+    skipped.push(...wired.skipped);
   }
 
   // Keep gitignored dirs present with a .gitkeep so clones have the structure.

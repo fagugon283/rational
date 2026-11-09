@@ -37,8 +37,9 @@ program
   .option("--locale <code>", "user working locale", "en")
   .option("--hook", "install a git pre-commit verify hook", false)
   .option("--force", "overwrite existing files", false)
+  .option("--no-mcp", "do not generate per-agent MCP configs / instruction pointers")
   .action((o) => {
-    const r = init(process.cwd(), { locale: o.locale, withHook: o.hook, force: o.force });
+    const r = init(process.cwd(), { locale: o.locale, withHook: o.hook, force: o.force, wireMcp: o.mcp });
     out(r, () => {
       console.log(`Initialized rational-agnostic in ${r.root}`);
       if (r.created.length) console.log("  created: " + r.created.join(", "));

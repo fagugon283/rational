@@ -664,7 +664,16 @@
         "taggedAt": "2026-10-27T18:55:29.555Z",
         "taggedBy": "agent:anthropic:claude-code"
       }
+    ],
+    "D-783fc9": [
+      {
+        "file": "src/init/wiring.ts",
+        "symbol": "wireAgents",
+        "sha256": "95d2c774a1be29a836926c8451a53fc7ac8c329fdbd5300c6ae74cdee8b451c3",
+        "taggedAt": "2026-11-09T16:49:21.435Z",
+        "taggedBy": "agent:anthropic:claude-code"
+      }
     ]
   },
-  "updatedAt": "2026-10-27T18:55:29.864Z"
+  "updatedAt": "2026-11-09T16:49:21.445Z"
 }

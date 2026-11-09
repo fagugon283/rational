@@ -74,17 +74,26 @@ If this repo already had code before rational-agnostic was added:
 
 ## How agents connect
 
-- **MCP-capable agents** (Claude Code, Cursor, Codex, Copilot, Jules, …): add
-  this MCP server to your client config:
+You can use rational-agnostic two ways. **The CLI always works with zero setup**
+— the MCP server is an optional, more token-efficient interface on top of it.
+
+- **CLI (works in any agent, no config):** every operation below is also a
+  command. Run it directly, e.g. \`npx rational-agnostic why <file> <symbol>\`,
+  \`npx rational-agnostic decision add ...\`, \`npx rational-agnostic verify\`.
+  Run \`npx rational-agnostic --help\` to list them.
+- **MCP (optional, auto-wired by \`init\`):** \`init\` already generated the config
+  your client reads — \`.mcp.json\` (Claude Code), \`.cursor/mcp.json\` (Cursor),
+  \`.vscode/mcp.json\` (Copilot), \`.gemini/settings.json\` (Gemini CLI),
+  \`.codex/config.toml\` (Codex). **Restart your client once** (and approve/trust
+  the server if asked) to load it. If it is missing, add this stdio server:
   \`\`\`json
-  { "command": "npx", "args": ["rational-agnostic", "mcp"] }
+  { "command": "npx", "args": ["-y", "rational-agnostic", "mcp"] }
   \`\`\`
   Tools: get_context, search, list_tasks, get_task, create_task,
   set_task_status, record_decision, get_decision, list_decisions, tag_code,
   why, read_memory, write_memory, append_memory, record_learning,
   get_learnings, distill, adopt_report, start_adoption, reindex, verify,
   whoami.
-- **Other agents / humans:** use the CLI (\`rational-agnostic --help\`).
 
 ## Identity
 

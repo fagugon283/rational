@@ -165,7 +165,7 @@ Search and `get_context` use embeddings. Out of the box they run on a
 **deterministic lexical embedder** with **zero extra dependencies** — nothing to
 download, no network, no native binaries. For higher-quality semantic search you
 can opt into a **local, offline transformer model** (`Xenova/all-MiniLM-L6-v2`,
-no API key) by installing the optional peer:
+no API key) by installing it yourself:
 
 ```bash
 npm install @huggingface/transformers    # optional; enables the local model
@@ -206,7 +206,7 @@ install time:
   `onnxruntime` subtree, ~135 MB, which carried the libvips/libheif/librsvg
   advisories) is **not** declared as a dependency at all. The embedder loads it
   via a guarded, indirect dynamic `import` only if you install it yourself, so
-  the default footprint stays ~24 MB and clean.
+  the default footprint stays ~27 MB and clean.
 - **Small, trusted runtime deps.** `commander` (CLI, zero-dep), `gray-matter`
   (YAML frontmatter), `proper-lockfile` (safe cross-process writes),
   `zod` **≥ 4.6.7** (schema validation, past the

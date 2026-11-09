@@ -1,5 +1,10 @@
 # rational-agnostic
 
+[![npm version](https://img.shields.io/npm/v/rational-agnostic.svg)](https://www.npmjs.com/package/rational-agnostic)
+[![npm downloads](https://img.shields.io/npm/dm/rational-agnostic.svg)](https://www.npmjs.com/package/rational-agnostic)
+[![license](https://img.shields.io/npm/l/rational-agnostic.svg)](./LICENSE)
+[![node](https://img.shields.io/node/v/rational-agnostic.svg)](https://nodejs.org)
+
 **A vendor-agnostic, file-based governance & traceability layer for AI coding agents.**
 
 `rational-agnostic` sits *above* any agent framework (Claude Code, Codex, Cursor,
@@ -77,7 +82,7 @@ Add the server to any MCP-capable client (Claude Code, Cursor, Codex, Copilot, �
 }
 ```
 
-The agent then sees 20 tools — `get_context`, `search`, `record_decision`,
+The agent then sees 22 tools — `get_context`, `search`, `record_decision`,
 `tag_code`, `create_task`, `set_task_status`, `read_memory`, `append_memory`,
 `record_learning`, `distill`, `verify`, and more. Agents are told how to use them
 by the generated `AGENTS.md`.
@@ -121,9 +126,9 @@ import { init, decisions, getContext, verify } from "rational-agnostic";
 ## Documentation
 
 A detailed, self-contained explainer (what was built, why, and how it works) is
-in [`docs/how-it-works.html`](docs/how-it-works.html) — open it in a browser.
-Available in English (primary), Spanish, Chinese and Japanese via the in-page
-language switcher.
+in [`docs/how-it-works.html`](https://github.com/fagugon283/rational-agnostic/blob/main/docs/how-it-works.html)
+— clone the repo and open it in a browser. Available in English (primary),
+Spanish, Chinese and Japanese via the in-page language switcher.
 
 ## License
 

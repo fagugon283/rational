@@ -171,11 +171,11 @@ no API key) by installing the optional peer:
 npm install @huggingface/transformers    # optional; enables the local model
 ```
 
-It is **not installed by default** on purpose: it pulls `sharp`/`onnxruntime`
-(~135 MB and the only packages flagged by `npm audit` here). When absent, the
-lexical fallback keeps search working everywhere; when present, the code detects
-and uses it automatically. The vector index is a rebuildable cache — the markdown
-files are always the source of truth:
+It is **not a dependency** on purpose: it pulls `sharp`/`onnxruntime` (~135 MB,
+and the source of the libvips/libheif/librsvg advisories if you add it). When
+absent, the lexical fallback keeps search working everywhere; when present, the
+code detects and uses it automatically. The vector index is a rebuildable cache —
+the markdown files are always the source of truth:
 
 ```bash
 rational-agnostic search "how are auth tokens issued"
@@ -198,25 +198,27 @@ Spanish, Chinese and Japanese via the in-page language switcher.
 
 ## Security & footprint
 
-The default install is deliberately lean — no native binaries, no install
-scripts, no network access at install time:
+The default install is deliberately lean and **`npm audit` reports 0
+vulnerabilities** — no native binaries, no install scripts, no network access at
+install time:
 
 - **Heavy ML stack is opt-in.** `@huggingface/transformers` (and its `sharp` /
-  `onnxruntime` subtree, ~135 MB) is **not** a runtime dependency; it is loaded
-  via a guarded dynamic `import` only if you install it yourself. This keeps the
-  default footprint ~24 MB and free of the `sharp`/libvips advisories.
+  `onnxruntime` subtree, ~135 MB, which carried the libvips/libheif/librsvg
+  advisories) is **not** declared as a dependency at all. The embedder loads it
+  via a guarded, indirect dynamic `import` only if you install it yourself, so
+  the default footprint stays ~24 MB and clean.
 - **Small, trusted runtime deps.** `commander` (CLI, zero-dep), `gray-matter`
-  (YAML frontmatter), `proper-lockfile` (safe cross-process writes), `zod`
-  (schema validation) and the official `@modelcontextprotocol/sdk`.
-- **Known advisory (low impact here):** `zod < 4.6.6` carries a
-  memory-exhaustion DoS ([GHSA-mrhx-c7xc-m3w5](https://github.com/advisories/GHSA-mrhx-c7xc-m3w5))
-  on oversized constrained collections. zod validates **local** MCP tool inputs
-  from your own agent, not untrusted remote traffic, so practical exposure is
-  low. It is pinned transitively by the MCP SDK; it will move to the fixed
-  release when the SDK does. Run `npm audit` any time to check the current state.
+  (YAML frontmatter), `proper-lockfile` (safe cross-process writes),
+  `zod` **≥ 4.6.7** (schema validation, past the
+  [GHSA-mrhx-c7xc-m3w5](https://github.com/advisories/GHSA-mrhx-c7xc-m3w5) DoS)
+  and the official `@modelcontextprotocol/sdk`.
+- **Deliberately not reinvented.** YAML frontmatter, cross-process locking and
+  CLI parsing stay on their small, trusted libraries: a hand-rolled replacement
+  would trade a negligible supply-chain reduction for real correctness risk
+  (your decision records are hand-editable and must round-trip exactly).
 
-Report a vulnerability via the repo's
-[issues](https://github.com/fagugon283/rational/issues).
+Run `npm audit` any time to check the current state. Report a vulnerability via
+the repo's [issues](https://github.com/fagugon283/rational/issues).
 
 ## License
 

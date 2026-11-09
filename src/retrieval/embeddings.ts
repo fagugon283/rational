@@ -4,6 +4,12 @@
 // @why: D-0014
 import type { EmbeddingsConfig } from "../core/types.js";
 
+// Indirect specifier (typed as string, not a string literal) so the optional
+// local-model dependency need not be installed — or even resolvable — at build
+// time. The dynamic import still finds it at runtime when the user installs it.
+// @why: D-1ac7d8
+const OPTIONAL_LOCAL_MODEL_PKG: string = "@huggingface/transformers";
+
 export interface Embedder {
   readonly id: string;
   readonly dimensions: number;
@@ -56,7 +62,7 @@ class LocalModelEmbedder implements Embedder {
     if (!this.pipe) {
       // Optional dependency; may be absent.
       const mod = (await import(
-        /* @vite-ignore */ "@huggingface/transformers"
+        /* @vite-ignore */ OPTIONAL_LOCAL_MODEL_PKG
       )) as {
         pipeline: (task: string, model: string, opts?: object) => Promise<unknown>;
       };
@@ -92,7 +98,7 @@ export async function getEmbedder(config: EmbeddingsConfig): Promise<Embedder> {
   if (config.provider === "local") {
     try {
       // Probe the optional dependency without instantiating the heavy pipeline.
-      await import(/* @vite-ignore */ "@huggingface/transformers");
+      await import(/* @vite-ignore */ OPTIONAL_LOCAL_MODEL_PKG);
       return new LocalModelEmbedder(config.model, dims);
     } catch {
       return new LexicalEmbedder(dims);

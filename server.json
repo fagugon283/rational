@@ -1,0 +1,27 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.fagugon283/rational-agnostic",
+  "description": "Vendor-agnostic governance & traceability layer for AI coding agents (MCP + CLI).",
+  "repository": {
+    "url": "https://github.com/fagugon283/rational",
+    "source": "github"
+  },
+  "version": "0.1.7",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "rational-agnostic",
+      "version": "0.1.7",
+      "runtimeHint": "npx",
+      "transport": {
+        "type": "stdio"
+      },
+      "packageArguments": [
+        {
+          "type": "positional",
+          "value": "mcp"
+        }
+      ]
+    }
+  ]
+}

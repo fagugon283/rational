@@ -1,6 +1,7 @@
 {
   "name": "rational-agnostic",
-  "version": "0.1.6",
+  "version": "0.1.7",
+  "mcpName": "io.github.fagugon283/rational-agnostic",
   "description": "Vendor-agnostic, file-based governance & traceability layer for AI coding agents: decisions, shared memory, task state, learnings and token-aware context retrieval. Everything is persisted in English.",
   "type": "module",
   "license": "MIT",
@@ -27,7 +28,12 @@
     "traceability",
     "shared-memory",
     "multi-agent",
-    "context-engineering"
+    "context-engineering",
+    "governance",
+    "claude-code",
+    "cursor",
+    "codex",
+    "cli"
   ],
   "engines": {
     "node": ">=18"

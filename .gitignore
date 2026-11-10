@@ -6,6 +6,11 @@ dist/
 
 # packed tarballs
 *.tgz
+*.tar.gz
+
+# MCP registry publisher binary (downloaded locally, not part of the package)
+mcp-publisher.exe
+mcp-publisher
 
 # logs
 *.log

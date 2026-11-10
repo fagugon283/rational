@@ -12,6 +12,9 @@ dist/
 mcp-publisher.exe
 mcp-publisher
 
+# private promotion/campaign notes (local only)
+PROMOTION-PROGRESS.md
+
 # logs
 *.log
 npm-debug.log*
